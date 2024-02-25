@@ -1,0 +1,28 @@
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.columnContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.sideColumn {
+    width: 25%;
+    height: 100%;
+}
+
+.centerColumn {
+    width: 50%;
+    height: 100%;
+}
+
+.scrubberContainer {
+    width: 100%;
+    height: 10%;
+}

@@ -1,0 +1,27 @@
+.trackContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content:start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 5%;
+}
+
+.trackArt {
+    width: 60%;
+    height: auto;
+}
+
+.trackTitle {
+    padding: 8px;
+    margin: 8px;
+    font-size: clamp(8vh, 80vh, 100%);
+}
+
+.artistTitle {
+    font-size: 3vh;
+    padding: 4px;
+    margin: 4px;
+    color: #757575;
+}
