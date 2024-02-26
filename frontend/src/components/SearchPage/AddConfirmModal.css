@@ -1,0 +1,58 @@
+.addConfirmModalBacker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.addConfirmModal {
+    width: 80vw;
+    min-height: 30vh;
+    background: linear-gradient(to bottom, #303030, #151515);
+    border-radius: 6px;
+    border: 1px solid rgb(111, 111, 111);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addConfirmTitle {
+    margin: 3px;
+    margin-top: 12px;
+}
+
+.addConfirmTrack {
+    margin: 4px;
+}
+
+.addConfirmButtonContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    flex-grow: 1;
+    width: 75%;
+}
+
+.addConfirmButton {
+    margin-bottom: 6px;
+    width: 100%;
+    font-size: large;
+    border-radius: 6px;
+}
+
+.addConfirmYes {
+    background-color: rgba(30, 200, 75, 0.8);
+    border: 1px solid green;
+    
+}
+
+.addConfirmNo {
+    background-color: rgba(200, 20, 30, 0.8);
+    border: 1px solid rgb(192, 0, 0);
+}

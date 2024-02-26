@@ -1,0 +1,41 @@
+.postAddContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 16px;
+}
+
+.postAddTitle {
+    animation: rainbow 8s linear infinite;
+    animation-direction: alternate;
+}
+
+.postAddContent {
+    font-size: large;
+}
+
+.postAddTrackName {
+    color: rgb(0, 255, 251);
+    font-size: x-large;
+    margin-top: 8px;
+}
+
+.postAddDoAgain {
+    width: 80%;
+    background-color: rgb(46, 71, 235);
+    font-size: x-large;
+    border-radius: 8px;
+    border: 1px solid blue;
+    font-weight: bold;
+}
+
+@keyframes rainbow {
+    0% { color: #ff0000; }   /* Red */
+    16.666% { color: #ff7f00; }  /* Orange */
+    33.333% { color: #4b0082; }  /* Indigo */
+    50% { color: #00ff00; }  /* Green */
+    66.666% { color: #0000ff; }  /* Blue */
+    83.333% { color: #ffff00; }  /* Yellow */
+    100% { color: #ff0000; }   /* Red */
+}

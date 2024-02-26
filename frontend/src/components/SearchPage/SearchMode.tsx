@@ -15,13 +15,16 @@ const SearchResults: React.FC<SearchResultsProps> = ({client, results, onSelect}
     if (results === null) {
         return <div/>;
     }
-    if (results.length === 0) {
+
+    const filtered = results.filter(result => result.tracks);
+
+    if (filtered.length === 0) {
         return <p>No results</p>;
     }
     
     return (
         <div>
-            {results.map(result => <SearchLocationGroup key={result.uri} client={client} results={result} onSelect={onSelect}/>)}
+            {filtered.map(result => <SearchLocationGroup key={result.uri} client={client} results={result} onSelect={onSelect}/>)}
         </div>
     );
 }
