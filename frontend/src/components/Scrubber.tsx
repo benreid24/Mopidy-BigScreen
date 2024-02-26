@@ -23,10 +23,11 @@ export const Scrubber: React.FC<SCrubberProps> = ({client, duration}) => {
     React.useEffect(() => {
         let syncTimeoutId: number;
         const syncPlaytime = async () => {
-            const actual = await client.playback?.getTimePosition();
-            console.log(`Time: ${actual}`);
-            if (actual) {
-                setCurrentTime(cur => actual >= 1000 ? Math.max(cur, actual) : actual);
+            if (client.playback) {
+                const actual = await client.playback.getTimePosition();
+                if (actual) {
+                    setCurrentTime(cur => actual >= 1000 ? Math.max(cur, actual) : actual);
+                }
             }
 
             syncTimeoutId = window.setTimeout(syncPlaytime, SyncInterval);

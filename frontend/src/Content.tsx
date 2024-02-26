@@ -1,6 +1,7 @@
 import React from 'react';
 import Mopidy from 'mopidy';
 import {Track} from './components/Track';
+import {Queue} from './components/Queue';
 
 import './Content.css';
 
@@ -14,7 +15,7 @@ export const Content: React.FC<ContentProps> = ({client, track}) => {
         <div className='content'>
             <div className='columnContainer'>
                 <div className='sideColumn'>
-                    {/* TODO */}
+                    <Queue client={client}/>
                 </div>
                 <div className='centerColumn'>
                     <Track client={client} track={track} />

@@ -1,7 +1,8 @@
 import React from 'react';
 import Mopidy from 'mopidy';
-import Spinner from './Spinner';
 import {Scrubber} from './Scrubber';
+import {AlbumArt} from './AlbumArt';
+import {getArtist} from '../Util';
 
 import './Track.css';
 
@@ -11,28 +12,11 @@ export interface TrackProps {
 }
 
 export const Track: React.FC<TrackProps> = ({client, track}) => {
-    const [albumArt, setAlbumArt] = React.useState<string | undefined>(undefined);
-
-    React.useEffect(() => {
-        client.library?.getImages({uris: [track.track.uri]}).then((result) => {
-            const imgs = result[track.track.uri];
-            if (imgs.length > 0) {
-                const biggest = imgs.reduce(
-                    (cur, next) => !cur || next.width > cur.width ? next : cur
-                );
-                setAlbumArt(biggest.uri);
-            }
-            else {
-                setAlbumArt('fish.webp');
-            }
-        });
-    }, [track, client]);
-
-    const artist = track.track.artists.map(artist => artist.name).join(' | ');
+    const artist = getArtist(track.track);
 
     return (
         <div className='trackContainer'>
-            {albumArt ? <img className='trackArt' src={albumArt} alt='Album Art'/> : <Spinner/>}
+            <AlbumArt client={client} track={track.track} className='trackArt'/>
             <h1 className='trackTitle'>{track.track.name}</h1>
             <h2 className='artistTitle'>{artist}</h2>
             <Scrubber client={client} duration={track.track.length}/>
