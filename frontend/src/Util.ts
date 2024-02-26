@@ -1,9 +1,12 @@
 import Mopidy from 'mopidy';
+import {ArtPlaceholder} from './Constants';
 
 const artCache: Record<string, string> = {};
-const placeholder = 'fish.webp';
 
 export const getArtist = (track: Mopidy.models.Track): string => {
+    if (!track.artists) {
+        return '';
+    }
     return track.artists.map(artist => artist.name).join(' | ');
 }
 
@@ -18,8 +21,8 @@ export const getAlbumArt = async (client: Mopidy, track: Mopidy.models.Track): P
     }
     const images = result[track.uri];
     if (images.length === 0) {
-        artCache[track.uri] = placeholder;
-        return placeholder;
+        artCache[track.uri] = ArtPlaceholder;
+        return ArtPlaceholder;
     }
     const image = images.reduce(
         (cur, next) => !cur || next.width > cur.width ? next : cur

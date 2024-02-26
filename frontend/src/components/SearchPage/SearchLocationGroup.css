@@ -1,0 +1,86 @@
+.searchLocationGroup {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 4px;
+}
+
+.searchLocationTitle {
+    color: #33bec7;
+    margin: 6px;
+}
+
+.searchLocationResultsContainer {
+    width: 100%;
+}
+
+.resultTrackContainer {
+    width: 96vw;
+    max-width: 96vw;
+    display: flex;
+    flex-direction: row;
+    height: 48px;
+    margin: 2vw;
+    border-radius: 6px;
+    border: 1px solid rgb(98, 98, 98);
+}
+
+.resultTrack {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.resultTrackAlt {
+    background-color: rgba(255, 255, 255, 0.17);
+}
+
+.resultTrackArtContainer {
+    margin-top: 6px;
+    margin-left: 6px;
+    width: 15%;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultTrackArt {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.resultTrackCenterColumn {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    padding-left: 8px;
+    padding-top: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.resultTrackTitle {
+    color: rgb(225, 223, 223);
+    font-size: 16px;
+    padding: 2px;
+    margin: 2px;
+    margin-top: 0;
+    padding-top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.resultTrackArtist {
+    font-size: 10px;
+    color: rgb(184, 183, 183);
+    padding: 2px;
+    margin: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

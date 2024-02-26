@@ -1,0 +1,13 @@
+.searchPageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.searchPageTitle {
+    margin-top: 12px;
+    margin-bottom: 8px;
+}

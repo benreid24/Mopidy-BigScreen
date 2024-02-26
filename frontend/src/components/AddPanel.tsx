@@ -1,7 +1,7 @@
 import React from 'react';
 import QRCode from "react-qr-code";
 import Spinner from './Spinner';
-import {PageParam, SearchPage} from '../Constants';
+import {PageParam, SearchPageName} from '../Constants';
 
 import './AddPanel.css';
 
@@ -14,7 +14,7 @@ const getUrl = async (): Promise<string> => {
     }
 
     const currentUrl = new URL(window.location.toString());
-    currentUrl.searchParams.set(PageParam, SearchPage);
+    currentUrl.searchParams.set(PageParam, SearchPageName);
     return currentUrl.toString();
 }
 

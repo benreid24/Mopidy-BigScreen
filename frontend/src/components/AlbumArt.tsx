@@ -2,6 +2,7 @@ import React from 'react';
 import Mopidy from 'mopidy';
 import Spinner from './Spinner';
 import {getAlbumArt} from '../Util';
+import {ArtPlaceholder} from '../Constants';
 
 export interface AlbumArtProps {
     client: Mopidy;
@@ -11,6 +12,10 @@ export interface AlbumArtProps {
 
 export const AlbumArt: React.FC<AlbumArtProps> = ({client, track, className}) => {
     const [albumArt, setAlbumArt] = React.useState<string | null>(null);
+
+    const onError = React.useCallback(() => {
+        setAlbumArt(ArtPlaceholder);
+    }, [setAlbumArt]);
 
     React.useEffect(() => {
         let timeoutId: number | null = null;
@@ -33,5 +38,5 @@ export const AlbumArt: React.FC<AlbumArtProps> = ({client, track, className}) =>
         };
     }, [track, client]);
 
-    return albumArt ? <img className={className} src={albumArt} alt='Album art'/> : <Spinner/>;
+    return albumArt ? <img className={className} src={albumArt} alt='Album art' onError={onError}/> : <Spinner/>;
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import Mopidy from "mopidy";
 import Spinner from './components/Spinner';
 import {Content} from './Content';
+import {PageParam, SearchPageName} from './Constants';
+import {SearchPage} from './SearchPage';
 
 import './App.css';
 
@@ -20,6 +22,21 @@ const options: Mopidy.Options = {
 };
 
 const client = new Mopidy(options);
+
+function resolvePage(connected: boolean): React.ReactNode {
+    if (!connected) {
+        return <Spinner/>;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get(PageParam);
+
+    if (page === SearchPageName) {
+        return <SearchPage client={client}/>
+    }
+
+    return <Content client={client}/>;
+}
 
 export function App() {
     const [connected, setConnected] = React.useState<boolean>(false);
@@ -43,7 +60,7 @@ export function App() {
 
     return (
         <div className="App">
-            {connected ? <Content client={client}/> : <Spinner/>}
+            {resolvePage(connected)}
         </div>
     );
 }
