@@ -1,5 +1,6 @@
 import Mopidy from 'mopidy';
 import {ArtPlaceholder} from './Constants';
+import {PageParam, SearchPageName} from './Constants';
 
 const artCache: Record<string, string> = {};
 
@@ -29,4 +30,17 @@ export const getAlbumArt = async (client: Mopidy, track: Mopidy.models.Track): P
     ).uri;
     artCache[track.uri] = image;
     return image;
+}
+
+export const getAddSongUrl = async (): Promise<string> => {
+    // TODO - fetch from backend
+    await new Promise(resolve => setTimeout(resolve, 800));
+    const configUrl = null;
+    if (configUrl) {
+        return configUrl;
+    }
+
+    const currentUrl = new URL(window.location.toString());
+    currentUrl.searchParams.set(PageParam, SearchPageName);
+    return currentUrl.toString();
 }
