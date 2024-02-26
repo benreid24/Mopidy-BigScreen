@@ -18,7 +18,11 @@ export const SearchPage: React.FC<SearchPageParams> = ({client}) => {
     const [mode, setMode] = React.useState<SearchPageState>(SearchPageState.Searching);
 
     const onTrackAdd = React.useCallback(async (track: Mopidy.models.Track) => {
-        // TODO
+        // TODO - confirm modal
+        const currentTrack = await client?.playback?.getCurrentTlTrack();
+        const currentIndex = await client.tracklist?.index({tl_track: currentTrack ? currentTrack : undefined});
+        const addIndex = currentIndex !== null && currentIndex !== undefined ? currentIndex + 1 : undefined;
+        await client.tracklist?.add({tracks: [track], at_position: addIndex});
     }, []);
 
     return (

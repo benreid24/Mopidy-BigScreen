@@ -54,7 +54,10 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    flex-grow: 1;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
     margin-top: 8px;
+    flex-grow: 1;
+    border: thin double rgb(141, 141, 141);
+    max-height: 83vh;
 }

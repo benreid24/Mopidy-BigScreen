@@ -10,13 +10,14 @@ interface ResultTrackProps {
     client: Mopidy;
     track: Mopidy.models.Track;
     index: number;
+    onSelect: (track: Mopidy.models.Track) => void;
 }
 
-const ResultTrack: React.FC<ResultTrackProps> = ({client, track, index}) => {
+const ResultTrack: React.FC<ResultTrackProps> = ({client, track, index, onSelect}) => {
     const className = index % 2 === 0 ? 'resultTrack' : 'resultTrackAlt';
 
     return (
-        <div className={`resultTrackContainer ${className}`}>
+        <div className={`resultTrackContainer ${className}`} onClick={() => onSelect(track)}>
             <div className='resultTrackArtContainer'>
                 <AlbumArt client={client} track={track} className='resultTrackArt'/>
             </div>
@@ -31,9 +32,10 @@ const ResultTrack: React.FC<ResultTrackProps> = ({client, track, index}) => {
 export interface SearchLocationGroupProps {
     client: Mopidy;
     results: Mopidy.models.SearchResult;
+    onSelect: (track: Mopidy.models.Track) => void;
 }
 
-export const SearchLocationGroup: React.FC<SearchLocationGroupProps> = ({client, results}) => {
+export const SearchLocationGroup: React.FC<SearchLocationGroupProps> = ({client, results, onSelect}) => {
     const backend = results.uri.split(':')[0];
     const name = SchemePrefixToName[backend] ? SchemePrefixToName[backend] : backend;
 
@@ -44,7 +46,7 @@ export const SearchLocationGroup: React.FC<SearchLocationGroupProps> = ({client,
         <div className='searchLocationGroup'>
             <h2 className='searchLocationTitle'>{name}</h2>
             <div className='searchLocationResultsContainer'>
-                {limited.map((track, i) => <ResultTrack key={track.uri} client={client} track={track} index={i}/>)}
+                {limited.map((track, i) => <ResultTrack key={track.uri} client={client} track={track} index={i} onSelect={onSelect}/>)}
             </div>
         </div>
     );

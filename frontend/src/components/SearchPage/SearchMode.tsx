@@ -8,9 +8,10 @@ import './SearchMode.css';
 interface SearchResultsProps {
     client: Mopidy;
     results: Mopidy.models.SearchResult[] | null;
+    onSelect: (track: Mopidy.models.Track) => void;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({client, results}) => {
+const SearchResults: React.FC<SearchResultsProps> = ({client, results, onSelect}) => {
     if (results === null) {
         return <div/>;
     }
@@ -20,7 +21,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({client, results}) => {
     
     return (
         <div>
-            {results.map(result => <SearchLocationGroup key={result.uri} client={client} results={result}/>)}
+            {results.map(result => <SearchLocationGroup key={result.uri} client={client} results={result} onSelect={onSelect}/>)}
         </div>
     );
 }
@@ -72,7 +73,7 @@ export const SearchMode: React.FC<SearchModeProps> = ({client, onSelect}) => {
                 />
             </form>
             <div className='searchResultsContainer'>
-                {pending ? <SearchSpinner/> : <SearchResults client={client} results={searchResults}/>}
+                {pending ? <SearchSpinner/> : <SearchResults client={client} results={searchResults} onSelect={onSelect}/>}
             </div>
         </div>
     )
