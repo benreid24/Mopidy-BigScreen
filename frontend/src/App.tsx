@@ -5,43 +5,45 @@ import {Content} from './Content';
 
 import './App.css';
 
+const getServerUrl = (): string => {
+    const isHttps = window.location.protocol === 'https:';
+
+    const devServer = 'ws://192.168.0.100:6680/mopidy/ws';
+    const prodServer = `${isHttps ? 'wss' : 'ws'}://${window.location.host}`;
+
+    return process.env.NODE_ENV === 'development' ? devServer : prodServer;
+}
+
 const options: Mopidy.Options = {
-  webSocketUrl: 'ws://192.168.0.100:6680/mopidy/ws',
+    webSocketUrl: getServerUrl(),
+    autoConnect: true,
 };
 
 const client = new Mopidy(options);
 
 export function App() {
-  const [currentTrack, setCurrentTrack] = React.useState<Mopidy.models.TlTrack | undefined>(undefined);
+    const [connected, setConnected] = React.useState<boolean>(false);
 
-  React.useEffect(() => {
-    const onLoadHandler = () => {
-      client.playback?.getCurrentTlTrack().then((track) => {
-        if (!currentTrack && track) {
-          setCurrentTrack(track);
-        }
-      })
-    };
+    React.useEffect(() => {
+        const onConnect = () => {
+            setConnected(true);
+        };
+        const onDisconnect = () => {
+            setConnected(false);
+        };
 
-    const onTrackHandler = ({tl_track}: {tl_track: Mopidy.models.TlTrack}) => {
-      setCurrentTrack(tl_track);
-    };
+        client.on('state:online', onConnect);
+        client.on('state:offline', onDisconnect);
 
-    const logger = (arg: any) => console.log(JSON.stringify(arg));
-    
-    client.on('event', logger);
-    client.on('state:online', onLoadHandler);
-    client.on('event:trackPlaybackStarted', onTrackHandler);
+        return () => {
+            client.off('state:online', onConnect);
+            client.off('state:offline', onDisconnect);
+        };
+    }, [setConnected]);
 
-    return () => {
-      client.off('state:online', onLoadHandler);
-      client.off('event:trackPlaybackStarted', onTrackHandler);
-    }
-  }, [currentTrack, setCurrentTrack]);
-
-  return (
-    <div className="App">
-      {currentTrack ? <Content client={client} track={currentTrack}/> : <Spinner/>}
-    </div>
-  );
+    return (
+        <div className="App">
+            {connected ? <Content client={client}/> : <Spinner/>}
+        </div>
+    );
 }
