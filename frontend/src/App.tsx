@@ -15,24 +15,29 @@ export function App() {
   const [currentTrack, setCurrentTrack] = React.useState<Mopidy.models.TlTrack | undefined>(undefined);
 
   React.useEffect(() => {
-    const playbackStateChangeCb = (
-      {old_state, new_state}: {old_state: Mopidy.core.PlaybackState, new_state: Mopidy.core.PlaybackState}
-      ) => {
-        // playing, paused, stopped
-    };
-
-    client.on('event:playbackStateChanged', playbackStateChangeCb);
-    client.on('event:streamTitleChanged', ({title}: {title: string}) => {
-      console.log(`Track: ${title}`);
-    });
-    client.on('state:online', () => {
+    const onLoadHandler = () => {
       client.playback?.getCurrentTlTrack().then((track) => {
         if (!currentTrack && track) {
           setCurrentTrack(track);
         }
       })
-    });
-  }, []);
+    };
+
+    const onTrackHandler = ({tl_track}: {tl_track: Mopidy.models.TlTrack}) => {
+      setCurrentTrack(tl_track);
+    };
+
+    const logger = (arg: any) => console.log(JSON.stringify(arg));
+    
+    client.on('event', logger);
+    client.on('state:online', onLoadHandler);
+    client.on('event:trackPlaybackStarted', onTrackHandler);
+
+    return () => {
+      client.off('state:online', onLoadHandler);
+      client.off('event:trackPlaybackStarted', onTrackHandler);
+    }
+  }, [currentTrack, setCurrentTrack]);
 
   return (
     <div className="App">

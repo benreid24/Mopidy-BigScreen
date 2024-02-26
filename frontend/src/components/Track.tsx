@@ -32,10 +32,10 @@ export const Track: React.FC<TrackProps> = ({client, track}) => {
 
     return (
         <div className='trackContainer'>
-            {albumArt ? <img className='trackArt' src={albumArt}/> : <Spinner/>}
+            {albumArt ? <img className='trackArt' src={albumArt} alt='Album Art'/> : <Spinner/>}
             <h1 className='trackTitle'>{track.track.name}</h1>
             <h2 className='artistTitle'>{artist}</h2>
-            <Scrubber/>
+            <Scrubber client={client} duration={track.track.length}/>
         </div>
     )
 }

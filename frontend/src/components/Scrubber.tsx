@@ -1,4 +1,5 @@
 import React from 'react';
+import Mopidy from 'mopidy';
 
 import './Scrubber.css';
 
@@ -9,13 +10,33 @@ const formatTime = (time: number) => {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
+const SyncInterval = 100; // ms
+
 export interface SCrubberProps {
-    //
+    client: Mopidy;
+    duration: number;
 }
 
-export const Scrubber: React.FC<SCrubberProps> = ({}) => {
-    const currentTime = 93 * 1000;
-    const duration = 180 * 1000;
+export const Scrubber: React.FC<SCrubberProps> = ({client, duration}) => {
+    const [currentTime, setCurrentTime] = React.useState<number>(0);
+
+    React.useEffect(() => {
+        let syncTimeoutId: number;
+        const syncPlaytime = async () => {
+            const actual = await client.playback?.getTimePosition();
+            console.log(`Time: ${actual}`);
+            if (actual) {
+                setCurrentTime(cur => actual >= 1000 ? Math.max(cur, actual) : actual);
+            }
+
+            syncTimeoutId = window.setTimeout(syncPlaytime, SyncInterval);
+        };
+        syncTimeoutId = window.setTimeout(syncPlaytime, SyncInterval);
+
+        return () => {
+            clearTimeout(syncTimeoutId);
+        };
+    }, [client]);
     
     return (
         <div className='scrubberContainer'>
