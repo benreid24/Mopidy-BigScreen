@@ -30,7 +30,7 @@ export const Content: React.FC<ContentProps> = ({client}) => {
         return () => {
             client.off('event:trackPlaybackStarted', onTrackHandler);
         };
-    }, [currentTrack, setCurrentTrack]);
+    }, [client, currentTrack, setCurrentTrack]);
 
     if (!currentTrack) {
         return <Spinner/>;

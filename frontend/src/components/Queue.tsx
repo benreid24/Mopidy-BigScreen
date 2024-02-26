@@ -87,6 +87,7 @@ export const Queue: React.FC<QueueProps> = ({client}) => {
         <div className='queueContainer'>
             <h1 className='queueTitle'>Up next</h1>
             {renderedTracks.map((track, index) => <QueueTrack key={track.tlid} client={client} track={track} index={index}/>)}
+            {renderedTracks.length >= 14 && <div className='queueCover'/>}
         </div>
     );
 }
