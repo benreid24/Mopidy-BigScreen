@@ -17,6 +17,9 @@
     padding: 8px;
     margin: 8px;
     font-size: clamp(8vh, 80vh, 100%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3.5em;
 }
 
 .artistTitle {

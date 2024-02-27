@@ -33,7 +33,7 @@ export const SearchPage: React.FC<SearchPageParams> = ({client}) => {
             await client.tracklist?.add({tracks: [selectedTrack], at_position: addIndex});
         }
         setMode(confirmed ? SearchPageState.PostAdd : SearchPageState.Searching);
-    }, [selectedTrack, setSelectedTrack, setMode]);
+    }, [client, selectedTrack, setMode]);
 
     const startOver = React.useCallback(() => {
         setSelectedTrack(null);
