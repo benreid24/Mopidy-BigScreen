@@ -26,6 +26,7 @@ jobs:
         cd frontend
         npm run-script build
         cd ../
+        mkdir mopidy_bigscreen/static
         cp -R frontend/build/* mopidy_bigscreen/static
     - name: "Build package"
       run: python3 -m build
