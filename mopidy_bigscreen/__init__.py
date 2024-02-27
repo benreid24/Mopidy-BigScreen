@@ -13,19 +13,15 @@ logger = logging.getLogger(__name__)
 class BigscreenRequestHandler(tornado.web.RequestHandler):
     def initialize(self, config):
         cfg = dict(config["bigscreen"])
-        self.result = {
-            'add_url': cfg.get('add_url', '')
-        }
+        self.result = {"add_url": cfg.get("add_url", "")}
 
     def get(self):
         self.write(self.result)
-        self.set_header('Content-Type', 'application/json')
+        self.set_header("Content-Type", "application/json")
 
 
 def bigscreen_factory(config, core):
-    return [
-        ('/config', BigscreenRequestHandler, {'config': config})
-    ]
+    return [("/config", BigscreenRequestHandler, {"config": config})]
 
 
 class Extension(ext.Extension):
@@ -49,7 +45,10 @@ class Extension(ext.Extension):
                 "path": str(pathlib.Path(__file__).parent / "static"),
             },
         )
-        registry.add('http:app', {
-            'name': self.ext_name,
-            'factory': bigscreen_factory,
-        })
+        registry.add(
+            "http:app",
+            {
+                "name": self.ext_name,
+                "factory": bigscreen_factory,
+            },
+        )
