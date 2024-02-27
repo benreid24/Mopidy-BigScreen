@@ -14,8 +14,19 @@ Mopidy-BigScreen
     :target: https://codecov.io/gh/benreid24/mopidy-bigscreen
     :alt: Test coverage
 
-Mopidy frontend for big screens
+Mopidy frontend for big screens. Intended to be displayed on a TV while your music plays during parties. A QR code is rendered that your guests can scan to add songs to the tracklist.
 
+TV Display
+=============
+
+.. image:: docs/big.png
+    :alt: CI build status
+
+Mobile Search
+=============
+
+.. image:: docs/mobile-add.png
+    :alt: Test coverage
 
 Installation
 ============
@@ -34,7 +45,12 @@ Before starting Mopidy, you must add configuration for
 Mopidy-BigScreen to your Mopidy configuration file::
 
     [bigscreen]
-    # TODO: Add example of extension config
+    enabled = true
+    add_url = yourcustomhost.com  # Optional
+
+Specifiy the `add_url` option if you would like the QR code to point to a custom URL instead of the URL where Bigscreen is running.
+One example of usage of a custom URL could be to provide an intermediate page that verifies users can access the Mopidy server
+from their device: https://github.com/benreid24/Network-Verifier
 
 
 Project resources
