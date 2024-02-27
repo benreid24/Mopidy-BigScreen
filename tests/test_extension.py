@@ -16,9 +16,7 @@ def test_get_config_schema():
 
     schema = ext.get_config_schema()
 
-    # TODO Test the content of your config schema
-    # assert "username" in schema
-    # assert "password" in schema
+    assert "add_url" in schema
 
 
 # TODO Write more tests
