@@ -11,7 +11,7 @@ const getServerUrl = (): string => {
     const isHttps = window.location.protocol === 'https:';
 
     const devServer = 'ws://192.168.0.100:6680/mopidy/ws';
-    const prodServer = `${isHttps ? 'wss' : 'ws'}://${window.location.host}`;
+    const prodServer = `${isHttps ? 'wss' : 'ws'}://${window.location.host}/mopidy/ws`;
 
     return process.env.NODE_ENV === 'development' ? devServer : prodServer;
 }

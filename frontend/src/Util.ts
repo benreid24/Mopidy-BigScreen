@@ -33,9 +33,18 @@ export const getAlbumArt = async (client: Mopidy, track: Mopidy.models.Track): P
 }
 
 export const getAddSongUrl = async (): Promise<string> => {
-    // TODO - fetch from backend
-    await new Promise(resolve => setTimeout(resolve, 800));
-    const configUrl = 'sirgeorgelordofthevoid.com:42069';
+    const doFetch = async () => {
+        try {
+            const result = await fetch(new URL('config', document.location.toString()));
+            const json = await result.json();
+            return json['add_url'];
+        }
+        catch (_) {
+            return null;
+        }
+    }
+    
+    const configUrl = await doFetch();
     if (configUrl) {
         return configUrl;
     }
